@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: instalock-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: instalock-web
+  template:
+    metadata:
+      labels:
+        app: instalock-web
+    spec:
+      containers:
+        - name: instalock-web
+          image: docker.io/tahminator/instalock-web:latest
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "125m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
