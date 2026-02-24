@@ -24,7 +24,7 @@ spec:
               value: production
           envFrom:
             - secretRef:
-                name: instalock-web-staging-secrets
+                name: instalock-web-production-secrets
           resources:
             requests:
               memory: "128Mi"
