@@ -1,5 +1,28 @@
 # `k8s-personal`
 
+Run this command on your VPS through SSH:
+
+```bash
+curl -sfL https://get.k3s.io | sh -
+
+# double check that it worked
+sudo k3s kubectl get node
+```
+
+To copy the kubeconfig from your single node VPS to your local machine, run this:
+
+```bash
+# replace <YOUR_VPS_IP>
+mkdir -p ./.kube/
+scp root@<YOUR_VPS_IP>:/etc/rancher/k3s/k3s.yaml ./.kube/config-k3s
+
+# replace all mentions of 127.0.0.1 with <YOUR_VPS_IP>
+sed -i '' 's/127.0.0.1/<YOUR_IP_HERE>/g' ./.kube/config-k3s
+```
+
+Ensure that you have `direnv` installed so it will automatically export `KUBECONFIG`
+to your environment when you're inside of this repo (see [.envrc](./.envrc))
+
 Pre-commit hook to ensure that secrets files are not committed when unencrypted.
 
 ```bash
