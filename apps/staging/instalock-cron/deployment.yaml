@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: instalock-cron
-          image: docker.io/tahminator/instalock-cron:latest
+          image: docker.io/tahminator/instalock-cron
           env:
             - name: NODE_ENV
               value: staging

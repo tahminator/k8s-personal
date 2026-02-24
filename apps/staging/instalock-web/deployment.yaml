@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: instalock-web
-          image: docker.io/tahminator/instalock-web:latest
+          image: docker.io/tahminator/instalock-web
           ports:
             - containerPort: 3050
           readinessProbe:

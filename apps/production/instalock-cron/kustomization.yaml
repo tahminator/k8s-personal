@@ -6,3 +6,6 @@ resources:
 commonLabels:
   app: instalock-cron
   environment: production
+images:
+  - name: docker.io/tahminator/instalock-cron
+    newTag: latest

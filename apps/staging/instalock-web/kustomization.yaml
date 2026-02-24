@@ -7,3 +7,6 @@ resources:
 commonLabels:
   app: instalock-web
   environment: staging
+images:
+  - name: docker.io/tahminator/instalock-web
+    newTag: latest
