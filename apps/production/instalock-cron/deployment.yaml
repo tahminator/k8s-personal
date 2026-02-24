@@ -1,35 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: instalock-web
+  name: instalock-cron
   namespace: production
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: instalock-web
+      app: instalock-cron
   template:
     metadata:
       annotations:
         reloader.stakater.com/auto: "true"
       labels:
-        app: instalock-web
+        app: instalock-cron
     spec:
       containers:
-        - name: instalock-web
-          image: docker.io/tahminator/instalock-web:latest
-          ports:
-            - containerPort: 3050
+        - name: instalock-cron
+          image: docker.io/tahminator/instalock-cron:latest
           env:
             - name: NODE_ENV
               value: production
           envFrom:
             - secretRef:
-                name: instalock-web-production-secrets
+                name: instalock-cron-production-secrets
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "125m"
+              memory: "64Mi"
+              cpu: "50m"
             limits:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "128Mi"
+              cpu: "100m"

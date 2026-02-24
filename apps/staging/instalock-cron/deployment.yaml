@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: instalock-cron
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: instalock-cron
+  template:
+    metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
+      labels:
+        app: instalock-cron
+    spec:
+      containers:
+        - name: instalock-cron
+          image: docker.io/tahminator/instalock-cron:latest
+          env:
+            - name: NODE_ENV
+              value: staging
+          envFrom:
+            - secretRef:
+                name: instalock-cron-staging-secrets
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

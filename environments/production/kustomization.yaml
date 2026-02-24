@@ -5,3 +5,4 @@ resources:
   - quota.yaml
   - ./instalock-app
   - ./postgres
+  - ./instalock-cron
