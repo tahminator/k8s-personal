@@ -4,4 +4,3 @@ resources:
   - namespace.yaml
   - quota.yaml
   - ./instalock-app
-  - traefik-config.yaml
