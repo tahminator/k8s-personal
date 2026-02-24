@@ -10,6 +10,14 @@ spec:
   storage:
     size: 5Gi
 
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
   enableSuperuserAccess: true
   superuserSecret:
     name: postgres-creds
