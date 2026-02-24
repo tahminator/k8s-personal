@@ -35,8 +35,6 @@ spec:
         secretAccessKey:
           name: postgres-r2-backups
           key: SECRET_KEY
-      wal:
-        compression: gzip
       data:
         compression: gzip
     retentionPolicy: "30d"

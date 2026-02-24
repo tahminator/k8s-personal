@@ -4,3 +4,4 @@ resources:
   - cluster.yaml
   - secrets.yaml
   - service.yaml
+  - schedule.yaml
