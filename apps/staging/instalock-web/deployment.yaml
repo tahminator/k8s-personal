@@ -17,6 +17,11 @@ spec:
       containers:
         - name: instalock-web
           image: docker.io/tahminator/instalock-web:latest
+          ports:
+            - containerPort: 3050
+          env:
+            - name: NODE_ENV
+              value: production
           envFrom:
             - secretRef:
                 name: instalock-web-secrets
