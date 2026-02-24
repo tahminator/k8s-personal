@@ -24,20 +24,6 @@ spec:
 
   monitoring:
     enablePodMonitor: true
-  backup:
-    barmanObjectStore:
-      destinationPath: s3://backups-v3/pg/
-      endpointURL: https://01da7479fc3f52bc6825dd054239f0aa.r2.cloudflarestorage.com
-      s3Credentials:
-        accessKeyId:
-          name: postgres-r2-backups
-          key: ACCESS_KEY
-        secretAccessKey:
-          name: postgres-r2-backups
-          key: SECRET_KEY
-      data:
-        compression: gzip
-    retentionPolicy: "30d"
 
   bootstrap:
     initdb:

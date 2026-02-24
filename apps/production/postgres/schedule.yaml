@@ -1,10 +1,61 @@
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
+apiVersion: batch/v1
+kind: CronJob
 metadata:
-  name: postgres-daily-backup
+  name: postgres-logical-backup
   namespace: production
 spec:
-  schedule: "0 0 * * *" # every day, midnight
-  backupOwnerReference: self
-  cluster:
-    name: postgres-shared
+  schedule: "0 0 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: tahminator/pg-aws:16
+              env:
+                - name: PGHOST
+                  value: postgres-shared-rw
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-creds
+                      key: username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-creds
+                      key: password
+                - name: ENDPOINT
+                  value: https://01da7479fc3f52bc6825dd054239f0aa.r2.cloudflarestorage.com
+                - name: BUCKET
+                  value: backups-v3
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-r2-backups
+                      key: ACCESS_KEY
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-r2-backups
+                      key: SECRET_KEY
+                - name: AWS_DEFAULT_REGION
+                  value: auto
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -e
+                  DATE=$(date +%Y-%m-%d_%H-%M-%S)
+                  echo "--- Starting Backup Session: $DATE ---"
+
+                  DBS=$(psql -At -c "SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('postgres', 'dbms_job_procedure', 'cnpg_monitoring');")
+
+                  for DB in $DBS; do
+                    echo "Backing up database: $DB"
+                    pg_dump -d "$DB" --clean --if-exists --create | gzip | aws s3 cp - s3://$BUCKET/pg/$DATE/$DB.sql.gz --endpoint-url $ENDPOINT
+                  done
+
+                  echo "--- Backup Session Completed ---"
