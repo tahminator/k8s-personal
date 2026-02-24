@@ -4,3 +4,4 @@ resources:
   - namespace.yaml
   - quota.yaml
   - ./instalock-app
+  - ./postgres

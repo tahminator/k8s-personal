@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-shared
+  namespace: production
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+  storage:
+    size: 5Gi
+
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: postgres-creds
+
+  monitoring:
+    enablePodMonitor: true
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://backups-v3/pg/
+      endpointURL: https://01da7479fc3f52bc6825dd054239f0aa.r2.cloudflarestorage.com
+      s3Credentials:
+        accessKeyId:
+          name: postgres-r2-backups
+          key: ACCESS_KEY
+        secretAccessKey:
+          name: postgres-r2-backups
+          key: SECRET_KEY
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
+    retentionPolicy: "30d"
+
+  bootstrap:
+    initdb:
+      database: instalock-server
+      owner: postgres
+      secret:
+        name: postgres-creds
