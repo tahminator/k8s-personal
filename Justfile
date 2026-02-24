@@ -1,8 +1,8 @@
-encrypt file:
-  sops --encrypt --in-place {{ file }}
+encrypt file *args:
+  sops --encrypt --in-place {{ file }} {{ args }}
 
-decrypt file:
-  sops --decrypt --in-place {{ file }}
+decrypt file *args:
+  sops --decrypt --in-place {{ file }} {{ args }}
 
 appe app env:
   just encrypt apps/{{ env }}/{{ app }}/secrets.yaml
@@ -10,5 +10,5 @@ appe app env:
 appd app env:
   just decrypt apps/{{ env }}/{{ app }}/secrets.yaml
 
-reconcile:
-  flux reconcile ks flux-system --with-source
+reconcile *args:
+  flux reconcile ks flux-system --with-source {{ args }}
