@@ -49,8 +49,8 @@ spec:
                 name: instalock-web-staging-secrets
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "250m"
+              memory: "128Mi"
+              cpu: "256m"
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "1.5Gi"
+              cpu: "2000m"
