@@ -49,8 +49,8 @@ spec:
                 name: instalock-web-production-secrets
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "256m"
+              memory: "512Mi"
+              cpu: "500m"
             limits:
               memory: "1.5Gi"
-              cpu: "2000m"
+              cpu: "3000m"
