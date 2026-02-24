@@ -36,7 +36,8 @@ for FILE in $FILES; do
         if ! grep -q "sops:" "$FILE"; then
             echo "--------------------------------------------------------"
             echo "ERROR: Unencrypted secret file detected: $FILE"
-            echo "Please encrypt this file using SOPS before committing."
+            echo "Please encrypt this file by running \`just encrypt $FILE\`,"
+            echo "then run \`git add $FILE\`."
             echo "--------------------------------------------------------"
             EXIT_CODE=1
         fi
