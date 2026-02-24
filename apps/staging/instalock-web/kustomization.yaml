@@ -6,3 +6,4 @@ resources:
   - service.yaml
 commonLabels:
   app: instalock-web
+  environment: staging
