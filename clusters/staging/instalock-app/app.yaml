@@ -12,3 +12,7 @@ spec:
     kind: GitRepository
     name: flux-system
   targetNamespace: staging
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg

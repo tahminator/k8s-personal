@@ -9,12 +9,17 @@ spec:
       app: instalock-web
   template:
     metadata:
+      annotations:
+        reloader.stakater.com/auto: "true"
       labels:
         app: instalock-web
     spec:
       containers:
         - name: instalock-web
           image: docker.io/tahminator/instalock-web:latest
+          envFrom:
+            - secretRef:
+                name: instalock-web-secrets
           resources:
             requests:
               memory: "128Mi"
