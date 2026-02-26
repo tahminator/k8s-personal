@@ -6,3 +6,4 @@ resources:
   - ./instalock-app
   - ./postgres
   - ./instalock-cron
+  - ./spring-react-example
