@@ -9,3 +9,4 @@ resources:
   - ./spring-react-example
   - ./go-example
   - ./redis
+  - ./monitoring
