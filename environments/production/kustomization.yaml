@@ -8,3 +8,4 @@ resources:
   - ./instalock-cron
   - ./spring-react-example
   - ./go-example
+  - ./redis
