@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: codebloom-stg
+  namespace: staging
+  labels:
+    release: kube-prometheus-stack
+spec:
+  staticConfigs:
+    - targets:
+        - "stg.codebloom.patinanetwork.org"
+  metricsPath: /actuator/prometheus
+  scheme: HTTPS
+  basicAuth:
+    username:
+      name: codebloom-stg-scrape-creds
+      key: username
+    password:
+      name: codebloom-stg-scrape-creds
+      key: password

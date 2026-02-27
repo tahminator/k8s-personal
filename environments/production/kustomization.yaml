@@ -10,3 +10,4 @@ resources:
   - ./go-example
   - ./redis
   - ./monitoring
+  - ./codebloom

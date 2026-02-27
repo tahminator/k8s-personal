@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: codebloom
+  namespace: production
+  labels:
+    release: kube-prometheus-stack
+spec:
+  staticConfigs:
+    - targets:
+        - "codebloom.patinanetwork.org"
+  metricsPath: /actuator/prometheus
+  scheme: HTTPS
+  basicAuth:
+    username:
+      name: codebloom-scrape-creds
+      key: username
+    password:
+      name: codebloom-scrape-creds
+      key: password

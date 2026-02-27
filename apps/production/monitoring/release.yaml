@@ -44,6 +44,8 @@ spec:
         retention: 30d
         serviceMonitorSelectorNilUsesHelmValues: false
         serviceMonitorNamespaceSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        scrapeConfigNamespaceSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
             spec:
