@@ -43,6 +43,15 @@ spec:
       prometheusSpec:
         retention: 30d
         serviceMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorNamespaceSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 10Gi
     nodeExporter:
       enabled: true
     kubeStateMetrics:
