@@ -4,6 +4,7 @@ resources:
   - deployment.yaml
   - secrets.yaml
   - service.yaml
+  - monitor.yaml
 commonLabels:
   app: instalock-web
   environment: production

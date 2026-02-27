@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: instalock-web
+  namespace: production
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: instalock-web
+  endpoints:
+    - port: http-web
+      path: /api/metrics
+      interval: 30s
+      basicAuth:
+        username:
+          name: instalock-web-production-secrets
+          key: PROMETHEUS_USERNAME
+        password:
+          name: instalock-web-production-secrets
+          key: PROMETHEUS_PASSWORD

@@ -42,6 +42,7 @@ spec:
       enabled: true
       prometheusSpec:
         retention: 30d
+        serviceMonitorSelectorNilUsesHelmValues: false
     nodeExporter:
       enabled: true
     kubeStateMetrics:
