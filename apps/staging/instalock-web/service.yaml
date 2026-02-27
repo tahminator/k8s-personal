@@ -6,6 +6,7 @@ spec:
   selector:
     app: instalock-web
   ports:
-    - protocol: TCP
+    - name: http-web
+      protocol: TCP
       port: 80
       targetPort: 3050
