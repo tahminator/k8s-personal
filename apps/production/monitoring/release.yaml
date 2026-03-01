@@ -23,6 +23,8 @@ spec:
     grafana:
       enabled: true
       grafana.ini:
+        server:
+          root_url: https://grafana.tahmid.io
         database:
           type: postgres
           host: postgres-public.production.svc.cluster.local:5432
