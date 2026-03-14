@@ -14,4 +14,4 @@ reconcile *args:
   flux reconcile ks flux-system --with-source {{ args }}
 
 watch:
-  watch "kubectl get pods -A && echo '---' && flux get kustomizations"
+  watch "git log -1 && echo '---' && kubectl get pods -A && echo '---' && flux get kustomizations"
