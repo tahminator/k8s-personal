@@ -30,7 +30,14 @@ spec:
           host: postgres-public.production.svc.cluster.local:5432
           name: grafana
           user: grafana
-          password: $__env{PASSWORD}
+          password: $__env{DB_PASSWORD}
+        smtp:
+          enabled: true
+          host: $__env{SMTP_HOST}
+          user: $__env{SMTP_USER}
+          password: $__env{SMTP_PASSWORD}
+          from_address: $__env{SMTP_USER}
+          from_name: Grafana (k8s-personal)
       envFromSecrets:
         - name: grafana-db-creds
       sidecar:
