@@ -10,4 +10,4 @@ commonLabels:
   environment: production
 images:
   - name: docker.io/tahminator/instalock-web
-    newTag: d6db6b0
+    newTag: e22e7df
