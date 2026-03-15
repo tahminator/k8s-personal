@@ -9,3 +9,15 @@ spec:
       - "--certificatesresolvers.letsencrypt.acme.email=tahmid@tahmid.io"
       - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+      - "--metrics.prometheus=true"
+    ports:
+      metrics:
+        port: 9100
+        expose:
+          default: false
+        exposedPort: 9100
+        protocol: TCP
+    metrics:
+      prometheus:
+        service:
+          enabled: true
