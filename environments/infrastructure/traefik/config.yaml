@@ -10,6 +10,10 @@ spec:
       - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
       - "--metrics.prometheus=true"
+      - "--accesslog=true"
+      - "--accesslog.format=json"
+      - "--accesslog.fields.names.ClientUsername=drop"
+      - "--accesslog.fields.headers.defaultmode=keep"
     ports:
       web:
         redirectTo:
