@@ -8,4 +8,4 @@ commonLabels:
   environment: staging
 images:
   - name: docker.io/tahminator/instalock-cron
-    newTag: staging-a6ea0ca
+    newTag: staging-a70ee0e
