@@ -11,3 +11,4 @@ resources:
   - ./redis
   - ./monitoring
   - ./codebloom
+  - ./codebloom-standup-bot
