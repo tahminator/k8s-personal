@@ -43,8 +43,8 @@ spec:
                 name: go-example-production-secrets
           resources:
             requests:
-              memory: "512Mi"
-              cpu: "5m"
+              memory: "16Mi"
+              cpu: "1m"
             limits:
-              memory: "1.5Gi"
-              cpu: "20m"
+              memory: "32Mi"
+              cpu: "5m"
