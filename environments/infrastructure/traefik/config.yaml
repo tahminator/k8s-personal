@@ -11,6 +11,10 @@ spec:
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
       - "--metrics.prometheus=true"
     ports:
+      web:
+        redirectTo:
+          port: websecure
+          priority: 10
       metrics:
         port: 9100
         expose:
