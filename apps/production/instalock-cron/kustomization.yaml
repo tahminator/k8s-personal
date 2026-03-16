@@ -8,4 +8,4 @@ commonLabels:
   environment: production
 images:
   - name: docker.io/tahminator/instalock-cron
-    newTag: a70ee0e
+    newTag: 97c94de
