@@ -12,3 +12,4 @@ resources:
   - ./monitoring
   - ./codebloom
   - ./codebloom-standup-bot
+  - ./portfolio
