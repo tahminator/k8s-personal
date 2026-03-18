@@ -11,3 +11,14 @@ commonLabels:
 images:
   - name: tahminator/instalock-web
     newTag: staging-5ffce05
+
+replacements:
+  - source:
+      kind: Kustomization
+      fieldPath: images.[name=tahminator/instalock-web].newTag
+    targets:
+      - select:
+          kind: Deployment
+          name: instalock-web
+        fieldPaths:
+          - spec.template.spec.containers.[name=instalock-web].env.[name=VERSION].value
