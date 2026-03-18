@@ -44,6 +44,8 @@ spec:
           env:
             - name: NODE_ENV
               value: production
+            - name: VERSION
+              value: "N/A"
           envFrom:
             - secretRef:
                 name: instalock-web-production-secrets
