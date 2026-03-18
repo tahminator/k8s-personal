@@ -10,4 +10,4 @@ commonLabels:
   environment: staging
 images:
   - name: tahminator/instalock-web
-    newTag: staging-0012b09
+    newTag: staging-5ffce05
