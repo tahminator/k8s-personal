@@ -7,5 +7,5 @@ commonLabels:
   app: instalock-cron
   environment: production
 images:
-  - name: docker.io/tahminator/instalock-cron
+  - name: tahminator/instalock-cron
     newTag: 97c94de

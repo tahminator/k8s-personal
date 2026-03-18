@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: portfolio
-          image: docker.io/tahminator/portfolio
+          image: tahminator/portfolio
           ports:
             - containerPort: 3000
           readinessProbe:

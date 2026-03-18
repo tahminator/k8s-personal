@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: spring-react-example
-          image: docker.io/tahminator/spring-react-example
+          image: tahminator/spring-react-example
           ports:
             - containerPort: 8080
           readinessProbe:

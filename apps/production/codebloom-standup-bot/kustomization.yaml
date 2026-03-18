@@ -7,6 +7,6 @@ commonLabels:
   app: codebloom-standup-bot
   environment: production
 images:
-  - name: docker.io/tahminator/codebloom-standup-bot
+  - name: tahminator/codebloom-standup-bot
     # change this tag to deploy
     newTag: effb742

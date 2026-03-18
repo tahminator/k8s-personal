@@ -9,5 +9,5 @@ commonLabels:
   app: portfolio
   environment: production
 images:
-  - name: docker.io/tahminator/portfolio
+  - name: tahminator/portfolio
     newTag: 925facc

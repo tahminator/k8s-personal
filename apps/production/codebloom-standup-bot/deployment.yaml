@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: codebloom-standup-bot
-          image: docker.io/tahminator/codebloom-standup-bot
+          image: tahminator/codebloom-standup-bot
           envFrom:
             - secretRef:
                 name: codebloom-standup-bot-production-secrets

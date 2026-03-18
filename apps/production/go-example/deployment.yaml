@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: go-example
-          image: docker.io/tahminator/go-example
+          image: tahminator/go-example
           ports:
             - containerPort: 8080
           readinessProbe:

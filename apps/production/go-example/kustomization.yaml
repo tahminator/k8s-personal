@@ -8,5 +8,5 @@ commonLabels:
   app: go-example
   environment: production
 images:
-  - name: docker.io/tahminator/go-example
+  - name: tahminator/go-example
     newTag: latest

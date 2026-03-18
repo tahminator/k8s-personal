@@ -9,5 +9,5 @@ commonLabels:
   app: instalock-web
   environment: production
 images:
-  - name: docker.io/tahminator/instalock-web
+  - name: tahminator/instalock-web
     newTag: 97c94de

@@ -8,5 +8,5 @@ commonLabels:
   app: spring-react-example
   environment: production
 images:
-  - name: docker.io/tahminator/spring-react-example
+  - name: tahminator/spring-react-example
     newTag: latest
