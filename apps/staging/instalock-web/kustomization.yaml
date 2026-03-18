@@ -14,8 +14,12 @@ images:
 
 replacements:
   - source:
-      kind: Kustomization
-      fieldPath: images.[name=tahminator/instalock-web].newTag
+      kind: Deployment
+      name: instalock-web
+      fieldPath: spec.template.spec.containers.[name=instalock-web].image
+      options:
+        delimiter: ":"
+        index: 1
     targets:
       - select:
           kind: Deployment
