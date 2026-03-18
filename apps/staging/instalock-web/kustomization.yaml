@@ -10,4 +10,4 @@ commonLabels:
   environment: staging
 images:
   - name: docker.io/tahminator/instalock-web
-    newTag: staging-97c94de
+    newTag: staging-1c69723
