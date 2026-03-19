@@ -10,4 +10,4 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/portfolio
-    newTag: 925facc
+    newTag: 1.0.0
