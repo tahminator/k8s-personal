@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: instalock-cron
+spec:
+  selector:
+    app: instalock-cron
+  ports:
+    - name: http-cron
+      protocol: TCP
+      port: 80
+      targetPort: 3051

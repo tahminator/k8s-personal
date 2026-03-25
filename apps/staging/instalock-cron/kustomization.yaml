@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - secrets.yaml
+  - service.yaml
+  - monitor.yaml
 commonLabels:
   app: instalock-cron
   environment: staging
