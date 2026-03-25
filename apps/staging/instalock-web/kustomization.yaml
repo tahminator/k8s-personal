@@ -26,3 +26,4 @@ replacements:
           name: instalock-web
         fieldPaths:
           - spec.template.spec.containers.[name=instalock-web].env.[name=VERSION].value
+          - spec.template.metadata.labels.version

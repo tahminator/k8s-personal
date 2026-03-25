@@ -19,6 +19,7 @@ spec:
         reloader.stakater.com/auto: "true"
       labels:
         app: instalock-web
+        version: "N/A"
     spec:
       containers:
         - name: instalock-web

@@ -11,3 +11,19 @@ commonLabels:
 images:
   - name: tahminator/instalock-cron
     newTag: staging-d0d1259
+
+replacements:
+  - source:
+      kind: Deployment
+      name: instalock-cron
+      fieldPath: spec.template.spec.containers.[name=instalock-cron].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: instalock-cron
+        fieldPaths:
+          - spec.template.spec.containers.[name=instalock-cron].env.[name=VERSION].value
+          - spec.template.metadata.labels.version

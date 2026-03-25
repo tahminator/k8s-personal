@@ -14,6 +14,7 @@ spec:
         reloader.stakater.com/auto: "true"
       labels:
         app: instalock-cron
+        version: "N/A"
     spec:
       containers:
         - name: instalock-cron
@@ -21,6 +22,8 @@ spec:
           env:
             - name: NODE_ENV
               value: staging
+            - name: VERSION
+              value: "N/A"
           envFrom:
             - secretRef:
                 name: instalock-cron-staging-secrets
