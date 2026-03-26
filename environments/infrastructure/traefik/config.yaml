@@ -25,6 +25,12 @@ spec:
           default: false
         exposedPort: 9100
         protocol: TCP
+      postgres:
+        port: 5432
+        expose:
+          default: true
+        exposedPort: 5432
+        protocol: TCP
     metrics:
       prometheus:
         service:

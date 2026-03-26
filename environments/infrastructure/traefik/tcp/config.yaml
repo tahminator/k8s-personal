@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: postgres-tcp
+  namespace: production
+spec:
+  entryPoints:
+    - postgres
+  routes:
+    - match: HostSNI(`db.tahmid.io`)
+      services:
+        - name: postgres-public
+          port: 5432
+  tls:
+    certResolver: letsencrypt
+    domains:
+      - main: db.tahmid.io
