@@ -3,9 +3,27 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - secrets.yaml
+  - service.yaml
+  - monitor.yaml
 commonLabels:
   app: instalock-cron
   environment: production
 images:
   - name: tahminator/instalock-cron
     newTag: 1.0.18
+
+replacements:
+  - source:
+      kind: Deployment
+      name: instalock-cron
+      fieldPath: spec.template.spec.containers.[name=instalock-cron].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: instalock-cron
+        fieldPaths:
+          - spec.template.spec.containers.[name=instalock-cron].env.[name=VERSION].value
+          - spec.template.metadata.labels.version
