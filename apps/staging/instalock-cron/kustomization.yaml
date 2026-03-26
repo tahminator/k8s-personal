@@ -10,7 +10,7 @@ commonLabels:
   environment: staging
 images:
   - name: tahminator/instalock-cron
-    newTag: staging-54de0ea
+    newTag: staging-4491957
 
 replacements:
   - source:
