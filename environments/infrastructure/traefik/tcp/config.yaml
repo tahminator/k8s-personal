@@ -12,6 +12,4 @@ spec:
         - name: postgres-public
           port: 5432
   tls:
-    certResolver: letsencrypt
-    domains:
-      - main: db.tahmid.io
+    passthrough: true
