@@ -10,7 +10,7 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/instalock-web
-    newTag: 1.0.29
+    newTag: 1.0.30
 
 replacements:
   - source:
