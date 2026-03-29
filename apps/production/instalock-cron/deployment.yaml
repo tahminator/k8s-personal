@@ -47,8 +47,8 @@ spec:
                 name: instalock-cron-production-secrets
           resources:
             requests:
-              memory: "128Mi"
+              memory: "64Mi"
               cpu: "15m"
             limits:
-              memory: "1536Mi"
-              cpu: "500m"
+              memory: "384Mi"
+              cpu: "750m"
