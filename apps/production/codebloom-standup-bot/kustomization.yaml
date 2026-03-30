@@ -8,5 +8,4 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/codebloom-standup-bot
-    # change this tag to deploy
-    newTag: effb742
+    newTag: ab61f7f
