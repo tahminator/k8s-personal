@@ -10,7 +10,7 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/instalock-cron
-    newTag: 1.0.35
+    newTag: 1.0.36
 
 replacements:
   - source:
