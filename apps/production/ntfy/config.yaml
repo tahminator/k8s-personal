@@ -7,7 +7,7 @@ data:
   server.yml: |
     base-url: https://ntfy.tahmid.io
     listen-http: ":8080"
-    log-level: debug
+    # log-level: debug
     behind-proxy: true
     attachment-cache-dir: /var/lib/ntfy/attachments
     upstream-base-url: https://ntfy.sh
