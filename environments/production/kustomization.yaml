@@ -12,4 +12,5 @@ resources:
   - ./monitoring
   - ./codebloom
   - ./codebloom-standup-bot
+  - ./ntfy
   - ./portfolio

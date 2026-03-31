@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ntfy-config
+  namespace: production
+data:
+  server.yml: |
+    base-url: https://ntfy.tahmid.io
+    listen-http: ":8080"
+    behind-proxy: true
+    attachment-cache-dir: /var/lib/ntfy/attachments
+    auth-default-access: deny-all
+    enable-login: true
+    enable-signup: false
