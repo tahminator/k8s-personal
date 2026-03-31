@@ -9,6 +9,7 @@ data:
     listen-http: ":8080"
     behind-proxy: true
     attachment-cache-dir: /var/lib/ntfy/attachments
+    upstream-base-url: https://ntfy.sh
     auth-default-access: deny-all
     enable-login: true
     enable-signup: false
