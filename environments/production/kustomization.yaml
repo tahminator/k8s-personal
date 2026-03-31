@@ -8,6 +8,7 @@ resources:
   - ./instalock-cron
   - ./spring-react-example
   - ./go-example
+  - ./grafana-to-ntfy
   - ./redis
   - ./monitoring
   - ./codebloom

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-to-ntfy
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-to-ntfy
+  template:
+    metadata:
+      labels:
+        app: grafana-to-ntfy
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      containers:
+        - name: grafana-to-ntfy
+          image: kittyandrew/grafana-to-ntfy
+          envFrom:
+            - secretRef:
+                name: grafana-to-ntfy-secrets
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 5
+          resources:
+            requests:
+              cpu: 5m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
