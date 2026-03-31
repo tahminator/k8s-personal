@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: instalock-cron
   namespace: staging
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -10,8 +12,6 @@ spec:
       app: instalock-cron
   template:
     metadata:
-      annotations:
-        reloader.stakater.com/auto: "true"
       labels:
         app: instalock-cron
         version: "N/A"

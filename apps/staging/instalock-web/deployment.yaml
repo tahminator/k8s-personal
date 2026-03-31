@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: instalock-web
   namespace: staging
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -15,8 +17,6 @@ spec:
       app: instalock-web
   template:
     metadata:
-      annotations:
-        reloader.stakater.com/auto: "true"
       labels:
         app: instalock-web
         version: "N/A"

@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: spring-react-example
   namespace: production
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -12,8 +14,6 @@ spec:
       app: spring-react-example
   template:
     metadata:
-      annotations:
-        reloader.stakater.com/auto: "true"
       labels:
         app: spring-react-example
     spec:

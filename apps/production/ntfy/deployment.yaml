@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: ntfy
   namespace: production
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -14,8 +16,6 @@ spec:
     metadata:
       labels:
         app: ntfy
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       containers:
         - name: ntfy

@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: portfolio
   namespace: production
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -15,8 +17,6 @@ spec:
       app: portfolio
   template:
     metadata:
-      annotations:
-        reloader.stakater.com/auto: "true"
       labels:
         app: portfolio
     spec:
