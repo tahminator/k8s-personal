@@ -8,4 +8,4 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/codebloom-standup-bot
-    newTag: 0ae1d8e
+    newTag: 09c9344
