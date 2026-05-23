@@ -8,5 +8,6 @@ resources:
   - postgres
   - redis
   - grafana-prometheus
+  - ntfy
   - loki
   - promtail
