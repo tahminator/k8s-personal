@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: production-excalidash-backend-tls
+  namespace: production
+spec:
+  secretName: production-excalidash-backend-tls
+  dnsNames:
+    - draw.api.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

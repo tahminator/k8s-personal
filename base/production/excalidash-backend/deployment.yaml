@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: excalidash-backend
+  namespace: production
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: excalidash-backend
+  template:
+    metadata:
+      labels:
+        app: excalidash-backend
+        version: "N/A"
+    spec:
+      containers:
+        - name: excalidash-backend
+          image: zimengxiong/excalidash-backend
+          ports:
+            - containerPort: 8000
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "8000"
+            - name: AUTH_MODE
+              value: local
+            - name: TRUST_PROXY
+              value: "1"
+            - name: ENFORCE_HTTPS_REDIRECT
+              value: "false"
+            - name: DATABASE_URL
+              value: file:/app/prisma/dev.db
+            - name: FRONTEND_URL
+              value: https://draw.tahmid.io
+          envFrom:
+            - secretRef:
+                name: excalidash-backend-production-secrets
+          volumeMounts:
+            - name: data
+              mountPath: /app/prisma
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 5
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: excalidash-backend-pvc

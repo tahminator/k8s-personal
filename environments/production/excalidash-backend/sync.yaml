@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/refs/heads/main/all.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: excalidash-backend-production
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./base/production/excalidash-backend
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: production
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  dependsOn:
+    - name: cert-manager-issuer-infrastructure
+    - name: traefik-infrastructure
+    - name: middleware-production

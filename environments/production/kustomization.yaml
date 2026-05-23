@@ -8,3 +8,5 @@ resources:
   - ./spring-react-example
   - ./go-example
   - ./portfolio
+  - ./excalidash-backend
+  - ./excalidash-frontend
