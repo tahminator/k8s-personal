@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: spring-react-example-web
+  namespace: production
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`spring.demo.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: spring-react-example
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: spring-react-example-websecure
+  namespace: production
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`spring.demo.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: spring-react-example
+          port: 80
+  tls:
+    secretName: production-spring-react-example-tls

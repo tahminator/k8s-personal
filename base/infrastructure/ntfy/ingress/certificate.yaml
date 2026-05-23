@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: production-ntfy-tls
+  namespace: infrastructure
+spec:
+  secretName: production-ntfy-tls
+  dnsNames:
+    - ntfy.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

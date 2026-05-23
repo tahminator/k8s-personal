@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - secrets.yaml
+  - service.yaml
+  - monitor.yaml
+  - certificate.yaml
+  - ingress.yaml
+commonLabels:
+  app: instalock-web
+  environment: staging
+images:
+  - name: tahminator/instalock-web
+    newTag: staging-f859438
+
+replacements:
+  - source:
+      kind: Deployment
+      name: instalock-web
+      fieldPath: spec.template.spec.containers.[name=instalock-web].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: instalock-web
+        fieldPaths:
+          - spec.template.spec.containers.[name=instalock-web].env.[name=VERSION].value
+          - spec.template.metadata.labels.version
