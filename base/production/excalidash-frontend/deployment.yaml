@@ -28,7 +28,7 @@ spec:
             - containerPort: 80
           env:
             - name: BACKEND_URL
-              value: excalidash-backend.production.svc.cluster.local:8000
+              value: excalidash-backend.production.svc.cluster.local:80
           readinessProbe:
             httpGet:
               path: /
