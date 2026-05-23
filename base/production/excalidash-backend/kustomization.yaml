@@ -13,3 +13,18 @@ commonLabels:
 images:
   - name: zimengxiong/excalidash-backend
     newTag: latest
+
+replacements:
+  - source:
+      kind: Deployment
+      name: excalidash-backend
+      fieldPath: spec.template.spec.containers.[name=excalidash-backend].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: excalidash-backend
+        fieldPaths:
+          - spec.template.metadata.labels.version

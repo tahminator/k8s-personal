@@ -11,3 +11,18 @@ commonLabels:
 images:
   - name: zimengxiong/excalidash-frontend
     newTag: latest
+
+replacements:
+  - source:
+      kind: Deployment
+      name: excalidash-frontend
+      fieldPath: spec.template.spec.containers.[name=excalidash-frontend].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: excalidash-frontend
+        fieldPaths:
+          - spec.template.metadata.labels.version
