@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`grafana.patinanetwork.org`) && PathPrefix(`/`)
+    - match: Host(`grafana.tahmid.io`) && PathPrefix(`/`)
       kind: Rule
       middlewares:
         - name: redirect-to-https
@@ -24,7 +24,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`grafana.patinanetwork.org`) && PathPrefix(`/`)
+    - match: Host(`grafana.tahmid.io`) && PathPrefix(`/`)
       kind: Rule
       services:
         - name: kube-prometheus-stack-grafana

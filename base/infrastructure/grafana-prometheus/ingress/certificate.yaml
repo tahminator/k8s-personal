@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: grafana-tls
   dnsNames:
-    - grafana.patinanetwork.org
+    - grafana.tahmid.io
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer
