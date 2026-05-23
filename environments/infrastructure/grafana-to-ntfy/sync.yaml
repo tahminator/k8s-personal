@@ -1,0 +1,17 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: grafana-to-ntfy-infrastructure
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./base/infrastructure/grafana-to-ntfy
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: infrastructure
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
