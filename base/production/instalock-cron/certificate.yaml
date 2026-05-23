@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: production-instalock-cron-tls
+  namespace: production
+spec:
+  secretName: production-instalock-cron-tls
+  dnsNames:
+    - internal.instalock.app
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

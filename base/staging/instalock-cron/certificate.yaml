@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: staging-instalock-cron-tls
+  namespace: staging
+spec:
+  secretName: staging-instalock-cron-tls
+  dnsNames:
+    - internal.staging.instalock.app
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
