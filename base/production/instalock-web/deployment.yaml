@@ -28,7 +28,7 @@ spec:
             - containerPort: 3050
           readinessProbe:
             httpGet:
-              path: /
+              path: /readyz
               port: 3050
             initialDelaySeconds: 30
             periodSeconds: 15
@@ -36,7 +36,7 @@ spec:
             failureThreshold: 10
           livenessProbe:
             httpGet:
-              path: /
+              path: /livez
               port: 3050
             initialDelaySeconds: 60
             periodSeconds: 30
