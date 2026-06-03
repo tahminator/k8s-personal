@@ -24,6 +24,13 @@ spec:
   entryPoints:
     - websecure
   routes:
+    - match: Host(`internal.instalock.app`) && PathPrefix(`/api/metrics`)
+      kind: Rule
+      middlewares:
+        - name: basic-auth
+      services:
+        - name: instalock-cron
+          port: 80
     - match: Host(`internal.instalock.app`) && PathPrefix(`/`)
       kind: Rule
       services:
