@@ -24,7 +24,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`staging.instalock.app`) && PathPrefix(`/metrics`)
+    - match: Host(`staging.instalock.app`) && PathPrefix(`/api/metrics`)
       kind: Rule
       middlewares:
         - name: basic-auth
