@@ -14,10 +14,3 @@ spec:
     - port: http-web
       path: /api/metrics
       interval: 30s
-      basicAuth:
-        username:
-          name: instalock-web-staging-secrets
-          key: PROMETHEUS_USERNAME
-        password:
-          name: instalock-web-staging-secrets
-          key: PROMETHEUS_PASSWORD
