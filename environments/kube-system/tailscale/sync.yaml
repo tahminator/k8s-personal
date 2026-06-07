@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tailscale-kube-system
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./base/kube-system/tailscale
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: kube-system
+  dependsOn:
+    - name: tailscale-infrastructure

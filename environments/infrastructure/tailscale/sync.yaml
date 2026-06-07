@@ -1,0 +1,25 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tailscale-infrastructure
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./base/infrastructure/tailscale
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: infrastructure
+  dependsOn:
+    - name: traefik-infrastructure
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  wait: true
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: tailscale-operator
+      namespace: infrastructure

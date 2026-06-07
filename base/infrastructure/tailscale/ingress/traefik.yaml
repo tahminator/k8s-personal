@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-tailscale-ingress
+  namespace: infrastructure
+  annotations:
+    tailscale.com/hostname: "cluster-traefik"
+spec:
+  type: LoadBalancer
+  loadBalancerClass: tailscale
+  selector:
+    app.kubernetes.io/name: traefik
+    app.kubernetes.io/instance: traefik-infrastructure
+  ports:
+    - name: websecure
+      port: 443
+      targetPort: websecure
+      protocol: TCP

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  # DO NOT CHANGE THIS!!!!!!!!
+  # k3s looks for this name and does config merging and mounting automatically
+  name: coredns-custom
+  namespace: kube-system
+data:
+  tahmid.io.server: |
+    tahmid.io:53 {
+        hosts {
+            100.110.47.103 media.tahmid.io           # cluster-traefik.taile8d58.ts.net
+            fallthrough
+        }
+        forward . 1.1.1.1
+        errors
+    }

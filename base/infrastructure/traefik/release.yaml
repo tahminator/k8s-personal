@@ -39,8 +39,10 @@ spec:
     providers:
       kubernetesIngress:
         enabled: true
+        allowExternalNameServices: true
       kubernetesCRD:
         enabled: true
+        allowExternalNameServices: true
     ports:
       web: {}
       websecure:
