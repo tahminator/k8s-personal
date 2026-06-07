@@ -9,7 +9,9 @@ data:
   tahmid.io.server: |
     tahmid.io:53 {
         hosts {
-            100.110.47.103 media.tahmid.io           # cluster-traefik.taile8d58.ts.net
+            # 100.110.47.103 = cluster-traefik.taile8d58.ts.net
+            100.110.47.103 media.tahmid.io
+            100.110.47.103 sh.tahmid.io
             fallthrough
         }
         forward . 1.1.1.1
