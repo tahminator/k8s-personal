@@ -5,9 +5,9 @@ metadata:
   namespace: production
 spec:
   rateLimit:
-    average: 100
-    burst: 200
-    period: 1s
+    average: 1
+    burst: 2
+    period: 5s
     sourceCriterion:
       ipStrategy:
         depth: 1
