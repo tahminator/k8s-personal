@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - https-redirect.yaml
   - basic-auth
+  - basic-rate-limit

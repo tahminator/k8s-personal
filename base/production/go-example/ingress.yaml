@@ -26,6 +26,8 @@ spec:
   routes:
     - match: Host(`go.demo.tahmid.io`) && PathPrefix(`/`)
       kind: Rule
+      middlewares:
+        - name: basic-rate-limit
       services:
         - name: go-example
           port: 80
