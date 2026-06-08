@@ -4,6 +4,8 @@ resources:
   - deployment.yaml
   - secrets.yaml
   - service.yaml
+  - certificate.yaml
+  - ingress.yaml
 commonLabels:
   app: go-example
   environment: production

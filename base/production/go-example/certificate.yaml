@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: production-go-example-tls
+  namespace: production
+spec:
+  secretName: production-go-example-tls
+  dnsNames:
+    - go.demo.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

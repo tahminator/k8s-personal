@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: go-example-web
+  namespace: production
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`go.demo.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: go-example
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: go-example-websecure
+  namespace: production
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`go.demo.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: go-example
+          port: 80
+  tls:
+    secretName: production-go-example-tls
