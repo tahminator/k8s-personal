@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: j-egress
+  namespace: infrastructure
+  annotations:
+    tailscale.com/tailnet-fqdn: "desktop-gev3esj.taile8d58.ts.net"
+spec:
+  type: ExternalName
+  externalName: placeholder.ts.net
+  ports:
+    - name: http
+      port: 9117
+      protocol: TCP
