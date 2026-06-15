@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: media2-tls
+  namespace: infrastructure
+spec:
+  secretName: media2-tls
+  dnsNames:
+    - media2.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
