@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: soob-tls
+  namespace: infrastructure
+spec:
+  secretName: soob-tls
+  dnsNames:
+    - soob.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
