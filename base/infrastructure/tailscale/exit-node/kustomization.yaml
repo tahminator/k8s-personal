@@ -9,7 +9,7 @@ images:
   - name: qmcgaw/gluetun
     newTag: v3.41.1
   - name: tailscale/tailscale
-    newTag: v1.78.1
+    newTag: v1.98.4
 
 replacements:
   - source:

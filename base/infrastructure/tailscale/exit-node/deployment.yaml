@@ -29,6 +29,13 @@ spec:
             - |
               sysctl -w net.ipv4.ip_forward=1
               sysctl -w net.ipv6.conf.all.forwarding=1
+              # Tailscale's exit-node forwarding sets fwmark 0x40000 and routes
+              # replies via tun0, which looks like asymmetric routing to rp_filter.
+              # src_valid_mark tells the kernel to skip rp_filter for marked
+              # packets. Tailscale tries to set this itself but /proc/sys is
+              # read-only in its non-privileged container.
+              sysctl -w net.ipv4.conf.all.src_valid_mark=1
+              sysctl -w net.ipv4.conf.default.src_valid_mark=1
           securityContext:
             privileged: true
       containers:
@@ -54,11 +61,23 @@ spec:
                   key: addresses
             - name: SERVER_CITIES
               value: "New York NY"
-            # Allow direct traffic to the cluster/private ranges so the
-            # tailscale sidecar can reach the kube-apiserver for state
-            # storage and so peer DERP fallback over the tailnet works.
+            # /etc/resolv.conf is bind-mounted shared across both containers in
+            # the pod. By default gluetun rewrites it to point at its own DoT
+            # resolver on 127.0.0.1, which then forwards to 1.1.1.1 — but the
+            # kill-switch blocks that outbound, so the tailscale sidecar can't
+            # resolve kubernetes.default.svc at boot. Keep the k8s cluster DNS
+            # entry in place so the sidecar uses CoreDNS via eth0 (allowed by
+            # FIREWALL_OUTBOUND_SUBNETS).
+            - name: DNS_KEEP_NAMESERVER
+              value: "on"
+            # Bypass the kill-switch for cluster-internal traffic (kube-apiserver
+            # for state storage, DNS, etc.) and RFC1918 LAN addresses. Do NOT
+            # include 100.64.0.0/10 (Tailscale CGNAT): it would install a higher-
+            # priority routing rule sending peer reply traffic via eth0 instead
+            # of tailscale0, breaking exit-node forwarding. Tailscale's transport
+            # uses public IPs, not 100.x.x.x, so this range never needs a bypass.
             - name: FIREWALL_OUTBOUND_SUBNETS
-              value: "10.42.0.0/16,10.43.0.0/16,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16"
+              value: "10.42.0.0/16,10.43.0.0/16,172.16.0.0/12,192.168.0.0/16"
             - name: TZ
               value: "America/New_York"
           volumeMounts:
