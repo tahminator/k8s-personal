@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  # `kubectl rollout restart deployment/coredns -n kube-system`
   # DO NOT CHANGE THIS!!!!!!!!
   # k3s looks for this name and does config merging and mounting automatically
   name: coredns-custom
