@@ -10,3 +10,4 @@ resources:
   - ./portfolio
   - ./excalidash-backend
   - ./excalidash-frontend
+  - ./abclang

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abclang
+  namespace: production
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: abclang
+  template:
+    metadata:
+      labels:
+        app: abclang
+        version: "N/A"
+    spec:
+      containers:
+        - name: abclang
+          image: tahminator/abclang
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 10
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: VERSION
+              value: "N/A"
+          resources:
+            requests:
+              memory: "24Mi"
+              cpu: "95m"
+            limits:
+              memory: "128Mi"
+              cpu: "175m"
