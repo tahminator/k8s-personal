@@ -10,7 +10,7 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/abclang
-    newTag: 55d9f7d
+    newTag: 1.0.2
 
 replacements:
   - source:
