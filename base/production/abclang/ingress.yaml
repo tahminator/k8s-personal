@@ -30,4 +30,4 @@ spec:
         - name: abclang
           port: 80
   tls:
-    secretName: production-abclang-tls
+    secretName: abclang-tls
