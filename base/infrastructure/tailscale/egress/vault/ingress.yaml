@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vault-web
+  namespace: infrastructure
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`vault.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: vault-egress
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vault-websecure
+  namespace: infrastructure
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`vault.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: vault-egress
+          port: 80
+  tls:
+    secretName: vault-tls

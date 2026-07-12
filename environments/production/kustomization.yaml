@@ -11,3 +11,4 @@ resources:
   - ./excalidash-backend
   - ./excalidash-frontend
   - ./abclang
+  - ./vaultwarden
