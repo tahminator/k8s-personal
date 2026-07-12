@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+  - pvc.yaml
+  - secrets.yaml
+commonLabels:
+  app: vaultwarden
+  environment: production
+images:
+  - name: vaultwarden/server
+    newTag: latest
+
+replacements:
+  - source:
+      kind: Deployment
+      name: vaultwarden
+      fieldPath: spec.template.spec.containers.[name=vaultwarden].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: vaultwarden
+        fieldPaths:
+          - spec.template.metadata.labels.version
