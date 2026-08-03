@@ -12,7 +12,7 @@ commonLabels:
   environment: production
 images:
   - name: zimengxiong/excalidash-backend
-    newTag: latest
+    newTag: 0.5.1
 
 replacements:
   - source:
