@@ -10,7 +10,7 @@ commonLabels:
   environment: production
 images:
   - name: vaultwarden/server
-    newTag: latest
+    newTag: "1.37.1"
 
 replacements:
   - source:
