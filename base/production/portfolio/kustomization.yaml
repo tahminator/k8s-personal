@@ -12,4 +12,4 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/portfolio
-    newTag: 1.0.4
+    newTag: 1.0.5
