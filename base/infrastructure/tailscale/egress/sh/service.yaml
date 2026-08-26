@@ -4,7 +4,7 @@ metadata:
   name: sh-egress
   namespace: infrastructure
   annotations:
-    tailscale.com/tailnet-fqdn: "desktop-gev3esj.taile8d58.ts.net"
+    tailscale.com/tailnet-fqdn: "desktop-56rudp8.taile8d58.ts.net"
 spec:
   type: ExternalName
   externalName: placeholder.ts.net
