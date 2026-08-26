@@ -14,10 +14,10 @@ data:
             100.110.47.103 media.tahmid.io
             100.110.47.103 media2.tahmid.io
             100.110.47.103 sh.tahmid.io
-            100.110.47.103 j.tahmid.io
             100.110.47.103 m.tahmid.io
             100.110.47.103 soob.tahmid.io
             100.110.47.103 vault.tahmid.io
+            100.110.47.103 o.tahmid.io
             fallthrough
         }
         forward . 1.1.1.1

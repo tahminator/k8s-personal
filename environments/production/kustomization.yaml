@@ -12,3 +12,4 @@ resources:
   - ./excalidash-frontend
   - ./abclang
   - ./vaultwarden
+  - ./seerr
