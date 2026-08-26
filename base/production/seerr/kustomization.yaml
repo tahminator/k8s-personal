@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+  - pvc.yaml
+  - secrets.yaml
+commonLabels:
+  app: seerr
+  environment: production
+images:
+  - name: ghcr.io/seerr-team/seerr
+    newTag: "v3.9.1"
+
+replacements:
+  - source:
+      kind: Deployment
+      name: seerr
+      fieldPath: spec.template.spec.containers.[name=seerr].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: seerr
+        fieldPaths:
+          - spec.template.metadata.labels.version
