@@ -16,3 +16,7 @@ spec:
       port: 443
       targetPort: websecure
       protocol: TCP
+    - name: rustdesk
+      port: 21118
+      targetPort: rustdesk
+      protocol: TCP

@@ -61,3 +61,6 @@ spec:
           default: true
         exposedPort: 6379
         protocol: TCP
+      rustdesk:
+        port: 21118
+        protocol: TCP
