@@ -9,3 +9,4 @@ resources:
   - vault/
   - o/
   - pc/
+  - windows-exporter/

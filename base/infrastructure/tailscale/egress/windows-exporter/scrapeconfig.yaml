@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: windows-exporter
+  namespace: infrastructure
+spec:
+  jobName: windows-exporter
+  metricsPath: /metrics
+  scrapeInterval: 30s
+  staticConfigs:
+    - targets:
+        - windows-exporter-egress.infrastructure.svc.cluster.local:9182
