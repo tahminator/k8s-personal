@@ -11,3 +11,4 @@ resources:
   - grafana-prometheus
   - loki
   - promtail
+  - plex-exporter
