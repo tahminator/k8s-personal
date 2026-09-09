@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: windows-exporter-tls
+  namespace: infrastructure
+spec:
+  secretName: windows-exporter-tls
+  dnsNames:
+    - metrics.pc.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
