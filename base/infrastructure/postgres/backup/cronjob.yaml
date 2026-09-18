@@ -19,7 +19,7 @@ spec:
               image: tahminator/pg-aws:16
               env:
                 - name: PGHOST
-                  value: postgres-shared-rw
+                  value: postgres
                 - name: PGUSER
                   valueFrom:
                     secretKeyRef:
