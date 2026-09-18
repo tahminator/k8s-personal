@@ -6,8 +6,11 @@ metadata:
 spec:
   schedule: "0 0 * * *"
   concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 30
+  failedJobsHistoryLimit: 30
   jobTemplate:
     spec:
+      activeDeadlineSeconds: 21600 # fail after 6 hrs
       template:
         spec:
           restartPolicy: OnFailure
@@ -48,6 +51,8 @@ spec:
                 - -c
                 - |
                   set -e
+                  WORKDIR=$(mktemp -d)
+                  trap 'rm -rf "$WORKDIR"' EXIT
                   DATE=$(date +%Y-%m-%d_%H-%M-%S)
                   echo "--- Starting Backup Session: $DATE ---"
 
@@ -55,7 +60,11 @@ spec:
 
                   for DB in $DBS; do
                     echo "Backing up database: $DB"
-                    pg_dump -d "$DB" --clean --if-exists --create | gzip | aws s3 cp - s3://$BUCKET/pg/$DATE/$DB.sql.gz --endpoint-url $ENDPOINT
+                    # Separate commands so /bin/sh cannot hide a failed dump or gzip.
+                    pg_dump -d "$DB" --clean --if-exists --create -f "$WORKDIR/backup.sql"
+                    gzip "$WORKDIR/backup.sql"
+                    aws s3 cp "$WORKDIR/backup.sql.gz" "s3://$BUCKET/pg/$DATE/$DB.sql.gz" --endpoint-url "$ENDPOINT"
+                    rm "$WORKDIR/backup.sql.gz"
                   done
 
                   echo "--- Backup Session Completed ---"
