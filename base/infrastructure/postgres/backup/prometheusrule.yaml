@@ -1,0 +1,53 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: postgres-logical-backup
+  namespace: infrastructure
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: postgres-logical-backup
+      rules:
+        - record: postgres_logical_backup:job_created_seconds
+          expr: |
+            max by (namespace, job_name) (
+              kube_job_created{namespace="infrastructure"}
+            )
+            and on (namespace, job_name)
+            max by (namespace, job_name) (
+              kube_job_owner{namespace="infrastructure", owner_kind="CronJob", owner_name="postgres-logical-backup", owner_is_controller="true"}
+            )
+        # Count terminal Job conditions, not failed pods: retries can still succeed.
+        - record: postgres_logical_backup:runs_14d
+          labels:
+            namespace: infrastructure
+            cronjob: postgres-logical-backup
+            outcome: success
+          expr: |
+            sum(
+              max by (namespace, job_name) (
+                kube_job_complete{namespace="infrastructure", condition="true"}
+              )
+              and on (namespace, job_name)
+              (postgres_logical_backup:job_created_seconds > time() - 14 * 86400)
+            ) or vector(0)
+        - record: postgres_logical_backup:runs_14d
+          labels:
+            namespace: infrastructure
+            cronjob: postgres-logical-backup
+            outcome: failure
+          expr: |
+            sum(
+              max by (namespace, job_name) (
+                kube_job_failed{namespace="infrastructure", condition="true"}
+              )
+              and on (namespace, job_name)
+              (postgres_logical_backup:job_created_seconds > time() - 14 * 86400)
+            ) or vector(0)
+        # No completed runs produces NaN rather than a misleading 100% success.
+        - record: postgres_logical_backup:outcome_ratio_14d
+          expr: |
+            postgres_logical_backup:runs_14d
+            / ignoring (outcome) group_left
+            sum without (outcome) (postgres_logical_backup:runs_14d)
