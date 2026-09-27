@@ -55,6 +55,7 @@ spec:
                   trap 'rm -rf "$WORKDIR"' EXIT
                   DATE=$(date +%Y-%m-%d_%H-%M-%S)
                   echo "--- Starting Backup Session: $DATE ---"
+                  aws --version
 
                   DBS=$(psql -At -c "SELECT datname FROM pg_database WHERE datistemplate = false AND datname NOT IN ('postgres', 'dbms_job_procedure', 'cnpg_monitoring');")
 
@@ -63,7 +64,8 @@ spec:
                     # Separate commands so /bin/sh cannot hide a failed dump or gzip.
                     pg_dump -d "$DB" --clean --if-exists --create -f "$WORKDIR/backup.sql"
                     gzip "$WORKDIR/backup.sql"
-                    aws s3 cp "$WORKDIR/backup.sql.gz" "s3://$BUCKET/pg/$DATE/$DB.sql.gz" --endpoint-url "$ENDPOINT"
+                    # Temporary diagnostics: debug output includes signed request headers.
+                    aws s3 cp "$WORKDIR/backup.sql.gz" "s3://$BUCKET/pg/$DATE/$DB.sql.gz" --endpoint-url "$ENDPOINT" --no-progress --debug
                     rm "$WORKDIR/backup.sql.gz"
                   done
 
