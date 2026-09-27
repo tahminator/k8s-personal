@@ -8,6 +8,8 @@ spec:
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 30
   failedJobsHistoryLimit: 30
+  # need a manual run?
+  # k -n infrastructure create job --from=cronjob/postgres-logical-backup postgres-logical-backup-manual-$(date +%s)
   jobTemplate:
     spec:
       activeDeadlineSeconds: 21600 # fail after 6 hrs
