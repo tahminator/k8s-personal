@@ -66,8 +66,7 @@ spec:
                     # Separate commands so /bin/sh cannot hide a failed dump or gzip.
                     pg_dump -d "$DB" --clean --if-exists --create -f "$WORKDIR/backup.sql"
                     gzip "$WORKDIR/backup.sql"
-                    # Temporary diagnostics: debug output includes signed request headers.
-                    aws s3 cp "$WORKDIR/backup.sql.gz" "s3://$BUCKET/pg/$DATE/$DB.sql.gz" --endpoint-url "$ENDPOINT" --no-progress --debug
+                    aws s3 cp "$WORKDIR/backup.sql.gz" "s3://$BUCKET/pg/$DATE/$DB.sql.gz" --endpoint-url "$ENDPOINT" --no-progress
                     rm "$WORKDIR/backup.sql.gz"
                   done
 
