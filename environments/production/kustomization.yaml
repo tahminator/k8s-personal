@@ -13,3 +13,4 @@ resources:
   - ./abclang
   - ./vaultwarden
   - ./seerr
+  - ./immich

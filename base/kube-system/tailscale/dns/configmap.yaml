@@ -20,6 +20,7 @@ data:
             100.110.47.103 o.tahmid.io
             100.110.47.103 pc.tahmid.io
             100.110.47.103 metrics.pc.tahmid.io
+            100.110.47.103 img.tahmid.io
             fallthrough
         }
         forward . 1.1.1.1

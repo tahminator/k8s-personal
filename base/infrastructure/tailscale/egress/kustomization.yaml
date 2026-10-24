@@ -10,3 +10,4 @@ resources:
   - o/
   - pc/
   - windows-exporter/
+  - immich/

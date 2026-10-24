@@ -7,3 +7,4 @@ resources:
   - postgres
   - observability
   - tailscale
+  - immich

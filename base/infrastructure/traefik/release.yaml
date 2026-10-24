@@ -49,6 +49,11 @@ spec:
         http:
           tls:
             enabled: true
+        # immich: default 60s readTimeout cuts off long video uploads
+        transport:
+          respondingTimeouts:
+            readTimeout: 600s
+            idleTimeout: 600s
       postgres:
         port: 5432
         expose:
