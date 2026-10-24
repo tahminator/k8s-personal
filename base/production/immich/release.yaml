@@ -1,0 +1,96 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: production
+spec:
+  interval: 1h
+  timeout: 10m
+  chart:
+    spec:
+      chart: immich
+      version: "0.13.4"
+      sourceRef:
+        kind: HelmRepository
+        name: immich
+        namespace: flux-system
+  upgrade:
+    remediation:
+      retries: 3
+  # https://github.com/immich-app/immich-charts/blob/main/charts/immich/values.yaml
+  values:
+    controllers:
+      main:
+        strategy: Recreate
+        containers:
+          main:
+            image:
+              tag: v3.3.5
+            env:
+              TZ: America/New_York
+    immich:
+      persistence:
+        library:
+          existingClaim: immich-library-pvc
+      # rendered to IMMICH_CONFIG_FILE; settings set here are read-only in the admin UI
+      # https://docs.immich.app/install/config-file
+      configuration:
+        machineLearning:
+          # smart search; duplicate detection reuses its embeddings
+          clip:
+            enabled: true
+          duplicateDetection:
+            enabled: true
+          # off to save memory until we move to a bigger node
+          facialRecognition:
+            enabled: false
+          ocr:
+            enabled: false
+    server:
+      controllers:
+        main:
+          containers:
+            main:
+              env:
+                DB_HOSTNAME: postgres.infrastructure.svc.cluster.local
+                DB_USERNAME: postgres
+                DB_DATABASE_NAME: immich
+                DB_PASSWORD:
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-secrets
+                      key: DB_PASSWORD
+                REDIS_HOSTNAME: redis.infrastructure.svc.cluster.local
+                REDIS_DBINDEX: "4"
+                REDIS_PASSWORD:
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-secrets
+                      key: REDIS_PASSWORD
+                # traefik pods; trust their X-Forwarded-For
+                IMMICH_TRUSTED_PROXIES: 10.42.0.0/16
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 512Mi
+                limits:
+                  memory: 2Gi
+    machine-learning:
+      controllers:
+        main:
+          containers:
+            main:
+              env:
+                # unload idle models after 5 min
+                MACHINE_LEARNING_MODEL_TTL: "300"
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 256Mi
+                limits:
+                  memory: 1536Mi
+      persistence:
+        cache:
+          type: persistentVolumeClaim
+          size: 10Gi
+          accessMode: ReadWriteOnce
