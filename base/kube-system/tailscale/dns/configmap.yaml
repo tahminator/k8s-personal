@@ -10,17 +10,17 @@ data:
   tahmid.io.server: |
     tahmid.io:53 {
         hosts {
-            # 100.110.47.103 = cluster-traefik.taile8d58.ts.net
-            100.110.47.103 media.tahmid.io
-            100.110.47.103 media2.tahmid.io
-            100.110.47.103 sh.tahmid.io
-            100.110.47.103 m.tahmid.io
-            100.110.47.103 soob.tahmid.io
-            100.110.47.103 vault.tahmid.io
-            100.110.47.103 o.tahmid.io
-            100.110.47.103 pc.tahmid.io
-            100.110.47.103 metrics.pc.tahmid.io
-            100.110.47.103 img.tahmid.io
+            # 100.72.23.242 = infrastructure-traefik-tailscale-ingress (ProxyGroup service)
+            100.72.23.242 media.tahmid.io
+            100.72.23.242 media2.tahmid.io
+            100.72.23.242 sh.tahmid.io
+            100.72.23.242 m.tahmid.io
+            100.72.23.242 soob.tahmid.io
+            100.72.23.242 vault.tahmid.io
+            100.72.23.242 o.tahmid.io
+            100.72.23.242 pc.tahmid.io
+            100.72.23.242 metrics.pc.tahmid.io
+            100.72.23.242 img.tahmid.io
             fallthrough
         }
         forward . 1.1.1.1

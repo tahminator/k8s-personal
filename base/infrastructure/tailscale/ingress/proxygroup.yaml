@@ -1,0 +1,8 @@
+apiVersion: tailscale.com/v1alpha1
+kind: ProxyGroup
+metadata:
+  name: traefik-ingress
+spec:
+  type: ingress
+  proxyClass: traefik-static
+  replicas: 1
