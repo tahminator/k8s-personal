@@ -36,11 +36,10 @@ spec:
       # https://docs.immich.app/install/config-file
       configuration:
         machineLearning:
-          # smart search; duplicate detection reuses its embeddings
           clip:
-            enabled: true
+            enabled: false
           duplicateDetection:
-            enabled: true
+            enabled: false
           # off to save memory until we move to a bigger node
           facialRecognition:
             enabled: false
@@ -76,21 +75,4 @@ spec:
                 limits:
                   memory: 2Gi
     machine-learning:
-      controllers:
-        main:
-          containers:
-            main:
-              env:
-                # unload idle models after 5 min
-                MACHINE_LEARNING_MODEL_TTL: "300"
-              resources:
-                requests:
-                  cpu: 50m
-                  memory: 256Mi
-                limits:
-                  memory: 1536Mi
-      persistence:
-        cache:
-          type: persistentVolumeClaim
-          size: 10Gi
-          accessMode: ReadWriteOnce
+      enabled: false

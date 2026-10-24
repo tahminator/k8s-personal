@@ -1,0 +1,86 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: immich-library-backup
+  namespace: production
+spec:
+  # weekly, sunday 03:00 UTC
+  schedule: "0 3 * * 0"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  # need a manual run?
+  # k -n production create job --from=cronjob/immich-library-backup immich-library-backup-manual-$(date +%s)
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 21600 # fail after 6 hrs
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: alpine:3.24
+              env:
+                - name: ENDPOINT
+                  value: https://01da7479fc3f52bc6825dd054239f0aa.r2.cloudflarestorage.com
+                - name: BUCKET
+                  value: backups-v3
+                - name: AWS_DEFAULT_REGION
+                  value: auto
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-backup-secrets
+                      key: ACCESS_KEY
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-backup-secrets
+                      key: SECRET_KEY
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -eu
+                  set -o pipefail
+                  apk add --no-cache aws-cli gpg gpg-agent tar >/dev/null
+                  export GNUPGHOME=$(mktemp -d)
+                  trap 'rm -rf "$GNUPGHOME"' EXIT
+
+                  DATE=$(date +%Y-%m-%d_%H-%M-%S)
+                  KEY="immich/$DATE/library.tar.gz.gpg"
+                  echo "--- Starting immich library backup: $DATE -> s3://$BUCKET/$KEY ---"
+
+                  # gzip here; gpg compression off so data isn't compressed twice
+                  tar -C /data -cf - . \
+                    | gzip -6 \
+                    | gpg --batch --pinentry-mode loopback --passphrase-file /secrets/BACKUP_PASSPHRASE \
+                        --symmetric --cipher-algo AES256 --compress-algo none -o - \
+                    | aws s3 cp - "s3://$BUCKET/$KEY" --endpoint-url "$ENDPOINT" --no-progress
+
+                  echo "--- Backup Completed ---"
+              volumeMounts:
+                - name: library
+                  mountPath: /data
+                  readOnly: true
+                - name: passphrase
+                  mountPath: /secrets
+                  readOnly: true
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+                limits:
+                  memory: 512Mi
+          volumes:
+            - name: library
+              persistentVolumeClaim:
+                claimName: immich-library-pvc
+                readOnly: true
+            - name: passphrase
+              secret:
+                secretName: immich-backup-secrets
+                items:
+                  - key: BACKUP_PASSPHRASE
+                    path: BACKUP_PASSPHRASE
