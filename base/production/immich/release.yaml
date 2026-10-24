@@ -29,6 +29,8 @@ spec:
             env:
               TZ: America/New_York
     immich:
+      metrics:
+        enabled: true
       persistence:
         library:
           existingClaim: immich-library-pvc
