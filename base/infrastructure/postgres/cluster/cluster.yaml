@@ -8,6 +8,18 @@ spec:
   instances: 1
   enablePDB: false
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
+  postgresql:
+    shared_preload_libraries:
+      - vchord
+    # pgvector (required by vchord) ships in the standard image; vchord is mounted as an image volume
+    extensions:
+      - name: vchord
+        image:
+          reference: ghcr.io/tensorchord/vchord-scratch:pg18-v1.1.1
+        dynamic_library_path:
+          - usr/lib/postgresql/18/lib
+        extension_control_path:
+          - usr/share/postgresql/18
   storage:
     size: 8Gi
   resources:
