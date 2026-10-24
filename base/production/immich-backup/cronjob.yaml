@@ -4,11 +4,11 @@ metadata:
   name: immich-library-backup
   namespace: production
 spec:
-  # weekly, sunday 03:00 UTC
-  schedule: "0 3 * * 0"
+  # daily, 03:00 UTC
+  schedule: "0 3 * * *"
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 4
-  failedJobsHistoryLimit: 4
+  successfulJobsHistoryLimit: 30
+  failedJobsHistoryLimit: 30
   # need a manual run?
   # k -n production create job --from=cronjob/immich-library-backup immich-library-backup-manual-$(date +%s)
   jobTemplate:
