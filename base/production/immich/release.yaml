@@ -36,6 +36,7 @@ spec:
       # https://docs.immich.app/install/config-file
       configuration:
         machineLearning:
+          enabled: false
           clip:
             enabled: false
           duplicateDetection:
