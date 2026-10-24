@@ -4,7 +4,7 @@ metadata:
   name: traefik-tailscale-ingress
   namespace: infrastructure
   annotations:
-    tailscale.com/hostname: "cluster-traefik"
+    tailscale.com/proxy-group: traefik-ingress
 spec:
   type: LoadBalancer
   loadBalancerClass: tailscale
