@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fin-web
+  namespace: production
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`fin.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: fin
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fin-websecure
+  namespace: production
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`fin.tahmid.io`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: fin
+          port: 80
+  tls:
+    secretName: production-fin-tls

@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fin
+  namespace: production
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: fin
+  template:
+    metadata:
+      labels:
+        app: fin
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+        - name: fin
+          image: tahminator/fin
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: ops
+              containerPort: 9090
+          env:
+            - name: APP_ENV
+              value: production
+            - name: HTTP_ADDR
+              value: ":8080"
+            - name: OPS_ADDR
+              value: ":9090"
+            - name: PUBLIC_URL
+              value: https://fin.tahmid.io
+            - name: STATIC_DIR
+              value: /app/static
+            - name: COOKIE_DOMAIN
+              value: fin.tahmid.io
+            - name: COOKIE_SECURE
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: fin-production-secrets
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: ops
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: ops
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 50m
+            limits:
+              memory: 512Mi
+              cpu: 1000m

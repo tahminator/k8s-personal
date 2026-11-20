@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: production-fin-tls
+  namespace: production
+spec:
+  secretName: production-fin-tls
+  dnsNames:
+    - fin.tahmid.io
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
