@@ -12,4 +12,4 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/fin
-    newTag: changeme
+    newTag: v0.0.1b-local
