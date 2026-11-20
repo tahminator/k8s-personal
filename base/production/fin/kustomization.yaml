@@ -13,3 +13,19 @@ commonLabels:
 images:
   - name: tahminator/fin
     newTag: 1.0.13
+
+replacements:
+  - source:
+      kind: Deployment
+      name: fin
+      fieldPath: spec.template.spec.containers.[name=fin].image
+      options:
+        delimiter: ":"
+        index: 1
+    targets:
+      - select:
+          kind: Deployment
+          name: fin
+        fieldPaths:
+          - spec.template.spec.containers.[name=fin].env.[name=VERSION].value
+          - spec.template.metadata.labels.version

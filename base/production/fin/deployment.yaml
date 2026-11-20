@@ -16,6 +16,7 @@ spec:
     metadata:
       labels:
         app: fin
+        version: "N/A"
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
@@ -38,6 +39,8 @@ spec:
               value: fin.tahmid.io
             - name: COOKIE_SECURE
               value: "true"
+            - name: VERSION
+              value: "N/A"
           envFrom:
             - secretRef:
                 name: fin-production-secrets
