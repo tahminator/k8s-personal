@@ -10,6 +10,6 @@ spec:
     matchLabels:
       app: fin
   endpoints:
-    - port: ops
+    - port: http
       path: /metrics
       interval: 30s

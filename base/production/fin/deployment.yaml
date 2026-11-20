@@ -25,15 +25,11 @@ spec:
           ports:
             - name: http
               containerPort: 8080
-            - name: ops
-              containerPort: 9090
           env:
             - name: APP_ENV
               value: production
             - name: HTTP_ADDR
               value: ":8080"
-            - name: OPS_ADDR
-              value: ":9090"
             - name: PUBLIC_URL
               value: https://fin.tahmid.io
             - name: STATIC_DIR
@@ -48,14 +44,14 @@ spec:
           readinessProbe:
             httpGet:
               path: /readyz
-              port: ops
+              port: http
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /healthz
-              port: ops
+              port: http
             periodSeconds: 30
             timeoutSeconds: 5
             failureThreshold: 3

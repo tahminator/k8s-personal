@@ -12,7 +12,3 @@ spec:
       protocol: TCP
       port: 80
       targetPort: http
-    - name: ops
-      protocol: TCP
-      port: 9090
-      targetPort: ops
