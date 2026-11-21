@@ -12,7 +12,7 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/fin
-    newTag: staging-2d00f29
+    newTag: staging-d67d8ae
 
 replacements:
   - source:
