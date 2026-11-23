@@ -12,7 +12,7 @@ commonLabels:
   environment: production
 images:
   - name: tahminator/fin
-    newTag: 1.0.32
+    newTag: 1.0.33
 
 replacements:
   - source:
