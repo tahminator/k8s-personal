@@ -22,7 +22,7 @@ metadata:
   namespace: infrastructure
 spec:
   entryPoints:
-    - tailnetsecure
+    - tailnetwebsecure
     # Uncomment the next line in a PR to expose media2.tahmid.io publicly.
     - websecure
   routes:

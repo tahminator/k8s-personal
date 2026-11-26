@@ -58,7 +58,7 @@ spec:
         port: 8001
         expose:
           default: false
-      tailnetsecure:
+      tailnetwebsecure:
         port: 8444
         expose:
           default: false
