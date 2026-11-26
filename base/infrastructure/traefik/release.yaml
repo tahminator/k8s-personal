@@ -54,21 +54,6 @@ spec:
           respondingTimeouts:
             readTimeout: 600s
             idleTimeout: 600s
-      tailnetweb:
-        port: 8001
-        expose:
-          default: false
-      tailnetwebsecure:
-        port: 8444
-        expose:
-          default: false
-        http:
-          tls:
-            enabled: true
-        transport:
-          respondingTimeouts:
-            readTimeout: 600s
-            idleTimeout: 600s
       postgres:
         port: 5432
         expose:

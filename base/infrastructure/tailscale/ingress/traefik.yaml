@@ -12,13 +12,9 @@ spec:
     app.kubernetes.io/name: traefik
     app.kubernetes.io/instance: traefik-infrastructure
   ports:
-    - name: web
-      port: 80
-      targetPort: tailnetweb
-      protocol: TCP
     - name: websecure
       port: 443
-      targetPort: tailnetwebsecure
+      targetPort: websecure
       protocol: TCP
     - name: rustdesk
       port: 21118

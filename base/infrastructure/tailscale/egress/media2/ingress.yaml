@@ -5,7 +5,7 @@ metadata:
   namespace: infrastructure
 spec:
   entryPoints:
-    - tailnetweb
+    - web
   routes:
     - match: Host(`media2.tahmid.io`) && PathPrefix(`/`)
       kind: Rule
@@ -22,8 +22,6 @@ metadata:
   namespace: infrastructure
 spec:
   entryPoints:
-    - tailnetwebsecure
-    # Uncomment the next line in a PR to expose media2.tahmid.io publicly.
     - websecure
   routes:
     - match: Host(`media2.tahmid.io`) && PathPrefix(`/`)
